@@ -69,6 +69,8 @@ kabir-chrome-extension/
 ├── environment.yml       # Conda environment
 ├── requirements.txt      # Python dependencies
 ├── test_extension.py     # Test script
+├── LICENSE               # Apache 2.0 License
+├── .gitignore           # Git ignore rules
 ├── DEPLOY.md            # Deployment guide
 └── README.md
 ```
@@ -135,7 +137,15 @@ pip install -r requirements.txt
 
 ## 📄 License
 
-This project is open source and available under the MIT License.
+This project is open source and available under the Apache License 2.0. See [LICENSE](LICENSE) for details.
+
+This means you are free to:
+- Use the code for any purpose
+- Modify and distribute the code
+- Use it in commercial projects
+- Create derivative works
+
+The only requirement is that you include the original license and copyright notice.
 
 ## 🤝 Contributing
 
