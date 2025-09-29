@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kabir Doha - New Tab</title>
+    <link rel="stylesheet" href="newtab.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">कबीर दोहे</h1>
+            <p class="subtitle">Kabir's Wisdom</p>
+        </header>
+        
+        <main class="main-content">
+            <div class="poetry-card">
+                <div class="doha-container">
+                    <div class="doha-hindi" id="doha-hindi">
+                        <!-- Doha will be loaded here -->
+                    </div>
+                    <div class="doha-transliteration" id="doha-transliteration">
+                        <!-- Transliteration will be loaded here -->
+                    </div>
+                </div>
+                
+                <div class="meaning-container">
+                    <h3 class="meaning-title">Meaning</h3>
+                    <p class="meaning-text" id="meaning-text">
+                        <!-- Meaning will be loaded here -->
+                    </p>
+                </div>
+            </div>
+            
+            <div class="actions">
+                <button class="btn btn-primary" id="new-doha-btn">
+                    <span class="btn-text">New Doha</span>
+                    <span class="btn-icon">⟳</span>
+                </button>
+            </div>
+        </main>
+        
+        <footer class="footer">
+            <p class="footer-text">"The soul is neither Hindu nor Muslim" - Kabir</p>
+        </footer>
+    </div>
+    
+    <script src="newtab.js"></script>
+</body>
+</html>
