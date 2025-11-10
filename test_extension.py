@@ -75,6 +75,39 @@ def test_doha_files():
         print("❌ Dohas directory missing")
         return False
     
+    # Test manifest file
+    manifest_path = dohas_dir / "manifest.json"
+    if not test_json_file(manifest_path, "Doha manifest file"):
+        return False
+    
+    # Validate manifest structure and check that all listed files exist
+    try:
+        with open(manifest_path, 'r', encoding='utf-8') as f:
+            manifest = json.load(f)
+        
+        if "dohaFiles" not in manifest:
+            print("❌ Manifest missing 'dohaFiles' field")
+            return False
+        
+        doha_files_list = manifest["dohaFiles"]
+        print(f"Manifest lists {len(doha_files_list)} doha files")
+        
+        # Check that all files in manifest exist
+        missing_files = []
+        for file_name in doha_files_list:
+            file_path = dohas_dir / file_name
+            if not file_path.exists():
+                missing_files.append(file_name)
+        
+        if missing_files:
+            print(f"❌ Manifest lists files that don't exist: {', '.join(missing_files)}")
+            return False
+        
+    except Exception as e:
+        print(f"❌ Error reading manifest: {e}")
+        return False
+    
+    # Test all doha files
     doha_files = list(dohas_dir.glob("doha_*.json"))
     if not doha_files:
         print("❌ No doha files found")
