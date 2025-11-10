@@ -41,18 +41,9 @@ class KabirDohaApp {
     async getDohaFiles() {
         // For now, we'll return a predefined list of doha files
         // In a real implementation, you might want to dynamically discover files
-        return [
-            'doha_0.json',
-            'doha_1.json',
-            'doha_2.json',
-            'doha_3.json',
-            'doha_4.json',
-            'doha_5.json',
-            'doha_6.json',
-            'doha_7.json',
-            'doha_8.json',
-            'doha_9.json'
-        ];
+        // read the names of files in dohas folder and return a list of files
+        const dohaFiles = fs.readdirSync('dohas');
+        return dohaFiles;
     }
 
     setupEventListeners() {
@@ -75,7 +66,7 @@ class KabirDohaApp {
         if (this.dohas.length === 0) return;
 
         // Get a random doha index
-        this.currentDohaIndex = Math.floor(Math.random() * this.dohas.length);
+        this.currentDohaIndex = Math.round(Math.random() * (this.dohas.length - 1));
         const doha = this.dohas[this.currentDohaIndex];
 
         // Update the display
