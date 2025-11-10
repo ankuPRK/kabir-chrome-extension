@@ -20,39 +20,42 @@ class KabirDohaApp {
     }
 
     async loadDohas() {
-        // Load all doha files from the dohas folder
-        const dohaFiles = await this.getDohaFiles();
-        
-        for (const file of dohaFiles) {
-            try {
-                const response = await fetch(`../dohas/${file}`);
-                const dohaData = await response.json();
-                this.dohas.push(dohaData);
-            } catch (error) {
-                console.warn(`Could not load ${file}:`, error);
+        // Load the manifest file that lists all doha files
+        try {
+            const manifestResponse = await fetch('../dohas/manifest.json');
+            if (!manifestResponse.ok) {
+                throw new Error('Could not load doha manifest');
             }
-        }
+            const manifest = await manifestResponse.json();
+            const dohaFiles = manifest.dohaFiles || [];
 
-        if (this.dohas.length === 0) {
-            throw new Error('No dohas could be loaded');
-        }
-    }
+            // Load each doha file from the manifest
+            // Each file will be associated with its index in the array
+            for (let index = 0; index < dohaFiles.length; index++) {
+                const fileName = dohaFiles[index];
+                try {
+                    const response = await fetch(`../dohas/${fileName}`);
+                    if (response.ok) {
+                        const dohaData = await response.json();
+                        // Store the doha with its associated index
+                        this.dohas.push(dohaData);
+                    } else {
+                        console.warn(`Could not load ${fileName}: HTTP ${response.status}`);
+                    }
+                } catch (error) {
+                    console.warn(`Could not load ${fileName}:`, error);
+                }
+            }
 
-    async getDohaFiles() {
-        // For now, we'll return a predefined list of doha files
-        // In a real implementation, you might want to dynamically discover files
-        return [
-            'doha_0.json',
-            'doha_1.json',
-            'doha_2.json',
-            'doha_3.json',
-            'doha_4.json',
-            'doha_5.json',
-            'doha_6.json',
-            'doha_7.json',
-            'doha_8.json',
-            'doha_9.json'
-        ];
+            if (this.dohas.length === 0) {
+                throw new Error('No dohas could be loaded');
+            }
+            
+            console.log(`Loaded ${this.dohas.length} dohas from manifest`);
+        } catch (error) {
+            console.error('Error loading dohas:', error);
+            throw error;
+        }
     }
 
     setupEventListeners() {
@@ -74,7 +77,7 @@ class KabirDohaApp {
     displayRandomDoha() {
         if (this.dohas.length === 0) return;
 
-        // Get a random doha index
+        // Get a random doha index (using Math.floor for even distribution)
         this.currentDohaIndex = Math.floor(Math.random() * this.dohas.length);
         const doha = this.dohas[this.currentDohaIndex];
 
