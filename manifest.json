@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Kabir Doha New Tab",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Displays beautiful Kabir dohas (2-line poetry) with meanings on every new tab",
   "permissions": [],
   "chrome_url_overrides": {
